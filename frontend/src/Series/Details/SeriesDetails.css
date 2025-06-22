@@ -60,6 +60,10 @@
   font-weight: 300;
   font-size: 50px;
   line-height: 50px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: auto;
 }
 
 .toggleMonitoredContainer {
@@ -170,6 +174,7 @@
     font-weight: 300;
     font-size: 30px;
     line-height: 30px;
+    overflow: hidden;
   }
 }
 

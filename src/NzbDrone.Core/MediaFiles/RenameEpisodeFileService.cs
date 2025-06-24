@@ -80,7 +80,7 @@ namespace NzbDrone.Core.MediaFiles
         {
             var seriesList = _seriesService.GetSeries(seriesIds);
             var episodesList = _episodeService.GetEpisodesBySeries(seriesIds).ToLookup(e => e.SeriesId);
-            var filesList = _mediaFileService.GetFilesBySeries(seriesIds).ToLookup(f => f.SeriesId);
+            var filesList = _mediaFileService.GetFilesBySeriesIds(seriesIds).ToLookup(f => f.SeriesId);
 
             return seriesList.SelectMany(series =>
                 {

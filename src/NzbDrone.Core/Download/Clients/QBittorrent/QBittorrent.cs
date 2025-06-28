@@ -87,7 +87,7 @@ namespace NzbDrone.Core.Download.Clients.QBittorrent
 
             Proxy.AddTorrentFromUrl(magnetLink, addHasSetShareLimits && setShareLimits ? remoteEpisode.SeedConfiguration : null, Settings);
 
-            if ((!addHasSetShareLimits && setShareLimits) || moveToTop || forceStart || Settings.AddSeriesTags)
+            if ((!addHasSetShareLimits && setShareLimits) || moveToTop || forceStart || (Settings.AddSeriesTags && remoteEpisode.Series.Tags.Count > 0))
             {
                 if (!WaitForTorrent(hash))
                 {
@@ -130,7 +130,7 @@ namespace NzbDrone.Core.Download.Clients.QBittorrent
                     }
                 }
 
-                if (Settings.AddSeriesTags)
+                if (Settings.AddSeriesTags && remoteEpisode.Series.Tags.Count > 0)
                 {
                     try
                     {
@@ -156,7 +156,7 @@ namespace NzbDrone.Core.Download.Clients.QBittorrent
 
             Proxy.AddTorrentFromFile(filename, fileContent, addHasSetShareLimits ? remoteEpisode.SeedConfiguration : null, Settings);
 
-            if ((!addHasSetShareLimits && setShareLimits) || moveToTop || forceStart || Settings.AddSeriesTags)
+            if ((!addHasSetShareLimits && setShareLimits) || moveToTop || forceStart || (Settings.AddSeriesTags && remoteEpisode.Series.Tags.Count > 0))
             {
                 if (!WaitForTorrent(hash))
                 {
@@ -199,7 +199,7 @@ namespace NzbDrone.Core.Download.Clients.QBittorrent
                     }
                 }
 
-                if (Settings.AddSeriesTags)
+                if (Settings.AddSeriesTags && remoteEpisode.Series.Tags.Count > 0)
                 {
                     try
                     {

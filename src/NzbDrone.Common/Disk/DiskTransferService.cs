@@ -345,7 +345,7 @@ namespace NzbDrone.Common.Disk
 
             if (mode.HasFlag(TransferMode.Copy))
             {
-                if (isBtrfs || isZfs)
+                if (isBtrfs || isZfs || isCifs)
                 {
                     if (_diskProvider.TryCreateRefLink(sourcePath, targetPath))
                     {
@@ -359,7 +359,7 @@ namespace NzbDrone.Common.Disk
 
             if (mode.HasFlag(TransferMode.Move))
             {
-                if (isBtrfs || isZfs)
+                if (isBtrfs || isZfs || isCifs)
                 {
                     if (isSameMount && _diskProvider.TryRenameFile(sourcePath, targetPath))
                     {

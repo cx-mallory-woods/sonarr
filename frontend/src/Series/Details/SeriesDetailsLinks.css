@@ -1,20 +1,59 @@
 .links {
-  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 4px;
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  text-align: left;
 }
 
 .link {
   white-space: nowrap;
+  width: 100%;
 }
 
 .linkLabel {
   composes: label from '~Components/Label.css';
-
   cursor: pointer;
+  width: 100%;
 }
 
+.idLabel {
+  margin-left: 4px;
+}
+
+.idCopyButton {
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+  /* margin-left: 6px !important; */
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+.idCopyButtonRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Mobile: stack vertically, put id+copy to the right */
 @media only screen and (max-width: $breakpointExtraSmall) {
   .links {
-    display: flex;
-    flex-flow: column wrap;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .linkGroup {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
   }
 }

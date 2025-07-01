@@ -56,14 +56,13 @@
 }
 
 .title {
-  display: -webkit-box;
   overflow: auto;
+  max-height: calc(3 * 50px);
   text-wrap: balance;
   font-weight: 300;
   font-size: 50px;
   line-height: 50px;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+  line-clamp: 3;
 }
 
 .toggleMonitoredContainer {
@@ -172,6 +171,7 @@
 
   .title {
     overflow: hidden;
+    max-height: calc(3 * 30px);
     font-weight: 300;
     font-size: 30px;
     line-height: 30px;

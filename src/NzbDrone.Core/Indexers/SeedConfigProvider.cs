@@ -51,7 +51,9 @@ namespace NzbDrone.Core.Indexers
 
             var seedConfig = new TorrentSeedConfiguration
             {
-                Ratio = seedCriteria.SeedRatio
+                Ratio = (fullSeason && seedCriteria.SeasonPackSeedRatio != null)
+                    ? seedCriteria.SeasonPackSeedRatio
+                    : seedCriteria.SeedRatio
             };
 
             var seedTime = fullSeason ? seedCriteria.SeasonPackSeedTime : seedCriteria.SeedTime;

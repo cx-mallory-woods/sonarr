@@ -16,7 +16,7 @@ namespace NzbDrone.Core.Indexers.Newznab
         private static readonly string[] ApiKeyWhiteList =
         {
             "nzbs.org",
-            "nzb.su",
+            "nzb.life",
             "dognzb.cr",
             "nzbplanet.net",
             "nzbid.org",

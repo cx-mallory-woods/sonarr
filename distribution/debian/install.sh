@@ -7,7 +7,7 @@
 ### Version V1.0.2 2024-01-03 - markus101 - Get user input from /dev/tty
 ### Version V1.0.3 2024-01-06 - StevieTV - exit script when it is ran from install directory
 ### Version V1.0.4 2025-04-05 - kaecyra - Allow user/group to be supplied via CLI, add unattended mode
-### Version V1.0.5 2025-07-08 - kaecyra - use systemctl instead of service for stopping app
+### Version V1.0.5 2025-07-08 - bparkin1283 - use systemctl instead of service for stopping app
 
 ### Boilerplate Warning
 #THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,

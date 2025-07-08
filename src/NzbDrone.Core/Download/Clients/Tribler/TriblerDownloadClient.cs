@@ -127,6 +127,7 @@ namespace NzbDrone.Core.Download.Clients.Tribler
                     case DownloadStatus.StoppedOnError:
                         item.Status = DownloadItemStatus.Failed;
                         break;
+                    case DownloadStatus.Loading:
                     default: // new status in API? default to downloading
                         item.Message = "Unknown download state: " + download.Status;
                         _logger.Info(item.Message);

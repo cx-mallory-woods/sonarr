@@ -37,6 +37,9 @@ namespace NzbDrone.Core.Download.Clients.Tribler
 
         [EnumMember(Value = @"STOPPED_ON_ERROR")]
         StoppedOnError = 9,
+
+        [EnumMember(Value = @"LOADING")]
+        Loading = 10,
     }
 
     public class Trackers

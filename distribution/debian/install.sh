@@ -167,11 +167,10 @@ if ! getent group "$app_guid" | grep -qw "$app_uid"; then
     echo "Added User [$app_uid] to Group [$app_guid]"
 fi
 
-# Stop the App if running
-if service --status-all | grep -Fq "$app"; then
-    systemctl stop "$app"
-    systemctl disable "$app".service
-    echo "Stopped existing $app"
+# Stop and disable the App if running
+if [ $(systemctl is-active "$app") = "active" ]; then
+    systemctl disable --now -q "$app"
+    echo "Stopped and disabled existing $app"
 fi
 
 # Create Appdata Directory

@@ -48,7 +48,6 @@ namespace NzbDrone.Core.Download.Clients.Tribler
         [FieldDefinition(4, Label = "UrlBase", Type = FieldType.Textbox, Advanced = true, HelpText = "DownloadClientSettingsUrlBaseHelpText")]
         [FieldToken(TokenField.HelpText, "UrlBase", "clientName", "Tribler")]
         [FieldToken(TokenField.HelpText, "UrlBase", "url", "http://[host]:[port]/[urlBase]")]
-
         public string UrlBase { get; set; }
 
         [FieldDefinition(5, Label = "ApiKey", Type = FieldType.Textbox, Privacy = PrivacyLevel.ApiKey, HelpText = "DownloadClientTriblerSettingsApiKeyHelpText")]

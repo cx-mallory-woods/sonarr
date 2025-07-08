@@ -41,113 +41,60 @@ namespace NzbDrone.Core.Download.Clients.Tribler
 
     public class Trackers
     {
-        [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
         public string Url { get; set; }
-
-        [JsonProperty("peers", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("peers")]
         public object Peers { get; set; }
-
-        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("status")]
         public string Status { get; set; }
     }
 
     public class Download
     {
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
-
-        [JsonProperty("progress", NullValueHandling = NullValueHandling.Ignore)]
         public float? Progress { get; set; }
-
-        [JsonProperty("infohash", NullValueHandling = NullValueHandling.Ignore)]
         public string Infohash { get; set; }
-
-        [JsonProperty("anon_download", NullValueHandling = NullValueHandling.Ignore)]
         public bool? AnonDownload { get; set; }
-
-        [JsonProperty("availability", NullValueHandling = NullValueHandling.Ignore)]
         public float? Availability { get; set; }
-
-        [JsonProperty("eta", NullValueHandling = NullValueHandling.Ignore)]
         public double? Eta { get; set; }
-
-        [JsonProperty("total_pieces", NullValueHandling = NullValueHandling.Ignore)]
         public long? TotalPieces { get; set; }
-
-        [JsonProperty("num_seeds", NullValueHandling = NullValueHandling.Ignore)]
         public long? NumSeeds { get; set; }
-
-        [JsonProperty("all_time_upload", NullValueHandling = NullValueHandling.Ignore)]
         public long? AllTimeUpload { get; set; }
-
-        [JsonProperty("all_time_download", NullValueHandling = NullValueHandling.Ignore)]
         public long? AllTimeDownload { get; set; }
 
-        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("status")]
         [JsonConverter(typeof(StringEnumConverter))]
         public DownloadStatus? Status { get; set; }
-
-        [JsonProperty("status_code", NullValueHandling = NullValueHandling.Ignore)]
         public int? StatusCode { get; set; }
-
-        [JsonProperty("all_time_ratio", NullValueHandling = NullValueHandling.Ignore)]
         public float? AllTimeRatio { get; set; }
-
-        [JsonProperty("time_added", NullValueHandling = NullValueHandling.Ignore)]
         public long? TimeAdded { get; set; }
-
-        [JsonProperty("max_upload_speed", NullValueHandling = NullValueHandling.Ignore)]
         public long? MaxUploadSpeed { get; set; }
-
-        [JsonProperty("max_download_speed", NullValueHandling = NullValueHandling.Ignore)]
         public long? MaxDownloadSpeed { get; set; }
-
-        [JsonProperty("hops", NullValueHandling = NullValueHandling.Ignore)]
         public long? Hops { get; set; }
-
-        [JsonProperty("safe_seeding", NullValueHandling = NullValueHandling.Ignore)]
         public bool? SafeSeeding { get; set; }
-
-        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
         public string Error { get; set; }
-
-        [JsonProperty("total_down", NullValueHandling = NullValueHandling.Ignore)]
         public long? TotalDown { get; set; }
-
-        [JsonProperty("size", NullValueHandling = NullValueHandling.Ignore)]
         public long? Size { get; set; }
-
-        [JsonProperty("destination", NullValueHandling = NullValueHandling.Ignore)]
         public string Destination { get; set; }
-
-        [JsonProperty("speed_down", NullValueHandling = NullValueHandling.Ignore)]
         public float? SpeedDown { get; set; }
-
-        [JsonProperty("speed_up", NullValueHandling = NullValueHandling.Ignore)]
         public float? SpeedUp { get; set; }
-
-        [JsonProperty("num_peers", NullValueHandling = NullValueHandling.Ignore)]
         public long? NumPeers { get; set; }
-
-        [JsonProperty("trackers", NullValueHandling = NullValueHandling.Ignore)]
         public List<Trackers> Trackers { get; set; }
     }
 
     public class DownloadsResponse
     {
-        [JsonProperty("downloads", NullValueHandling = NullValueHandling.Ignore)]
         public List<Download> Downloads { get; set; }
     }
 
     public class AddDownloadRequest
     {
-        [JsonProperty("anon_hops", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("anon_hops")]
         public long? AnonymityHops { get; set; }
 
-        [JsonProperty("safe_seeding", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("safe_seeding")]
         public bool? SafeSeeding { get; set; }
 
-        [JsonProperty("destination", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("destination")]
         public string Destination { get; set; }
 
         [JsonProperty("uri", Required = Newtonsoft.Json.Required.Always)]
@@ -157,70 +104,51 @@ namespace NzbDrone.Core.Download.Clients.Tribler
 
     public class AddDownloadResponse
     {
-        [JsonProperty("infohash", NullValueHandling = NullValueHandling.Ignore)]
         public string Infohash { get; set; }
-
-        [JsonProperty("started", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Started { get; set; }
     }
 
     public class RemoveDownloadRequest
     {
-        [JsonProperty("remove_data", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("remove_data")]
         public bool? RemoveData { get; set; }
     }
 
     public class DeleteDownloadResponse
     {
-        [JsonProperty("removed", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Removed { get; set; }
-
-        [JsonProperty("infohash", NullValueHandling = NullValueHandling.Ignore)]
         public string Infohash { get; set; }
     }
 
     public class UpdateDownloadRequest
     {
-        [JsonProperty("anon_hops", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("anon_hops")]
         public long? AnonHops { get; set; }
 
-        [JsonProperty("selected_files", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("selected_files")]
         public List<int> Selected_files { get; set; }
 
-        [JsonProperty("state", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("state")]
         public string State { get; set; }
     }
 
     public class UpdateDownloadResponse
     {
-        [JsonProperty("modified", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Modified { get; set; }
-
-        [JsonProperty("infohash", NullValueHandling = NullValueHandling.Ignore)]
         public string Infohash { get; set; }
     }
 
     public class File
     {
-        [JsonProperty("size", NullValueHandling = NullValueHandling.Ignore)]
         public long? Size { get; set; }
-
-        [JsonProperty("index", NullValueHandling = NullValueHandling.Ignore)]
         public long? Index { get; set; }
-
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
         public string Name { get; set; }
-
-        [JsonProperty("progress", NullValueHandling = NullValueHandling.Ignore)]
         public float? Progress { get; set; }
-
-        [JsonProperty("included", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Included { get; set; }
     }
 
     public class GetFilesResponse
     {
-        [JsonProperty("files", NullValueHandling = NullValueHandling.Ignore)]
         public List<File> Files { get; set; }
     }
 }

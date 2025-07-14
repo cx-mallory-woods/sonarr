@@ -67,6 +67,7 @@ namespace NzbDrone.Core.Download.Clients.Tribler
         [JsonProperty("status")]
         [JsonConverter(typeof(StringEnumConverter))]
         public DownloadStatus? Status { get; set; }
+
         public int? StatusCode { get; set; }
         public float? AllTimeRatio { get; set; }
         public long? TimeAdded { get; set; }
@@ -96,8 +97,6 @@ namespace NzbDrone.Core.Download.Clients.Tribler
 
         [JsonProperty("safe_seeding")]
         public bool? SafeSeeding { get; set; }
-
-        [JsonProperty("destination")]
         public string Destination { get; set; }
 
         [JsonProperty("uri", Required = Newtonsoft.Json.Required.Always)]
@@ -131,7 +130,6 @@ namespace NzbDrone.Core.Download.Clients.Tribler
         [JsonProperty("selected_files")]
         public List<int> Selected_files { get; set; }
 
-        [JsonProperty("state")]
         public string State { get; set; }
     }
 

@@ -59,6 +59,7 @@ namespace NzbDrone.Core.Test.IndexerTests
         public void should_return_season_time_for_season_packs()
         {
             var settings = new TorznabSettings();
+            settings.SeedCriteria.SeasonPackSeedGoal = (int)SeasonPackSeedGoal.UseSeasonPackSeedGoal;
             settings.SeedCriteria.SeasonPackSeedTime = 10;
 
             Mocker.GetMock<ICachedIndexerSettingsProvider>()
@@ -90,6 +91,7 @@ namespace NzbDrone.Core.Test.IndexerTests
         public void should_return_season_ratio_for_season_packs_when_set()
         {
             var settings = new TorznabSettings();
+            settings.SeedCriteria.SeasonPackSeedGoal = (int)SeasonPackSeedGoal.UseSeasonPackSeedGoal;
             settings.SeedCriteria.SeedRatio = 1.0;
             settings.SeedCriteria.SeasonPackSeedRatio = 10.0;
 
@@ -122,7 +124,9 @@ namespace NzbDrone.Core.Test.IndexerTests
         public void should_return_standard_ratio_for_season_packs_when_not_set()
         {
             var settings = new TorznabSettings();
+            settings.SeedCriteria.SeasonPackSeedGoal = (int)SeasonPackSeedGoal.UseStandardSeedGoal;
             settings.SeedCriteria.SeedRatio = 1.0;
+            settings.SeedCriteria.SeasonPackSeedRatio = 10.0;
 
             Mocker.GetMock<ICachedIndexerSettingsProvider>()
                 .Setup(v => v.GetSettings(It.IsAny<int>()))

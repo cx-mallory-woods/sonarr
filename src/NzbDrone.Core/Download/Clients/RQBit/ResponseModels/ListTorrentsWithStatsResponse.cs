@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace NzbDrone.Core.Download.Clients.RQBit.ResponseModels
 {
-    public class TorrentWithStatsListResponse
+    public class ListTorrentsWithStatsResponse
     {
         [JsonProperty("torrents")]
         public List<TorrentWithStatsResponse> Torrents { get; set; }
@@ -30,7 +30,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit.ResponseModels
     public class TorrentStatsResponse
     {
         [JsonProperty("state")]
-        public string State { get; set; }
+        public TorrentState State { get; set; }
 
         [JsonProperty("file_progress")]
         public List<long> FileProgress { get; set; }

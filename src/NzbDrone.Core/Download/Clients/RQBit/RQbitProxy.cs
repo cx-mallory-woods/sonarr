@@ -86,7 +86,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
                 return result;
             }
 
-            var torrentListWithStats = JsonConvert.DeserializeObject<TorrentWithStatsListResponse>(response.Content);
+            var torrentListWithStats = JsonConvert.DeserializeObject<ListTorrentsWithStatsResponse>(response.Content);
 
             if (torrentListWithStats?.Torrents != null)
             {

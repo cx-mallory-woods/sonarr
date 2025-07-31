@@ -12,7 +12,9 @@ namespace NzbDrone.Core.Download.Clients.RQBit
         public long DownRate { get; set; }
         public bool IsFinished { get; set; }
         public bool IsActive { get; set; }
+        public bool HasError { get; set; }
         public long FinishedTime { get; set; }
         public string Path { get; set; }
+        public string Message { get; set; }
     }
 }

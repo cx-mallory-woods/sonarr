@@ -121,7 +121,10 @@ namespace NzbDrone.Core.Download.Clients.RQBit
                         }
 
                         torrent.IsFinished = torrentWithStats.Stats.Finished;
-                        torrent.IsActive = torrentWithStats.Stats.State != "paused";
+                        torrent.IsActive = torrentWithStats.Stats.State == TorrentState.Live || torrentWithStats.Stats.State == TorrentState.Initializing;
+                        torrent.HasError = torrentWithStats.Stats.State == TorrentState.Error || torrentWithStats.Stats.State == TorrentState.Invalid;
+
+                        torrent.Message = torrentWithStats.Stats.Error;
 
                         result.Add(torrent);
                     }

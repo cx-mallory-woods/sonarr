@@ -84,7 +84,7 @@ namespace NzbDrone.Core.MediaFiles
                 try
                 {
                     // Preserve prior mtime millis per https://github.com/Sonarr/Sonarr/issues/7228
-                    var mtime = localDate.WithoutTicks().AddMilliseconds(oldLastWrite.Millisecond);
+                    var mtime = localDate.WithTicksFrom(oldLastWrite);
 
                     _diskProvider.FileSetLastWriteTime(filePath, mtime);
                     _logger.Debug("Date of file [{0}] changed from '{1}' to '{2}'", filePath, oldLastWrite, mtime);

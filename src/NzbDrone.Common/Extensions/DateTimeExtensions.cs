@@ -45,5 +45,10 @@ namespace NzbDrone.Common.Extensions
         {
             return dateTime.AddTicks(-(dateTime.Ticks % TimeSpan.TicksPerSecond));
         }
+
+        public static DateTime WithTicksFrom(this DateTime dateTime, DateTime other)
+        {
+            return dateTime.WithoutTicks().AddTicks(other.Ticks % TimeSpan.TicksPerSecond);
+        }
     }
 }

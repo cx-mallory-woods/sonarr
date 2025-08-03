@@ -65,7 +65,7 @@ namespace NzbDrone.Core.Download.Clients.Tribler
                     DownloadId = download.Infohash,
                     Title = download.Name,
 
-                    DownloadClientInfo = DownloadClientItemClientInfo.FromDownloadClient(this, false) // TODO: WHAT IS POST-IMPORT
+                    DownloadClientInfo = DownloadClientItemClientInfo.FromDownloadClient(this, false)
                 };
 
                 // some concurrency could make this faster.
@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Download.Clients.Tribler
                 }
 
                 item.TotalSize = (long)download.Size;
-                item.RemainingSize = (long)(download.Size * (1 - download.Progress)); // TODO: i expect progress to be between 0 and 1
+                item.RemainingSize = (long)(download.Size * (1 - download.Progress));1
                 item.SeedRatio = download.AllTimeRatio;
 
                 if (download.Eta.HasValue)

@@ -76,7 +76,7 @@ namespace NzbDrone.Core.Test.MediaFiles.UpdateEpisodeFileServiceTests
             if (OsInfo.IsNotWindows)
             {
                 Assert.AreEqual(
-                    UpdateEpisodeFileService.EpochTime.ToLocalTime().AddMilliseconds(oldMillis),
+                    DateTimeExtensions.EpochTime.ToLocalTime().AddMilliseconds(oldMillis),
                     _lastWrite.ToLocalTime(),
                     "Unix case: mtime should clamp on epoch time (UTC) with last write millis");
             }

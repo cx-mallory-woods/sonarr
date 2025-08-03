@@ -22,8 +22,6 @@ namespace NzbDrone.Core.MediaFiles
     public class UpdateEpisodeFileService : IUpdateEpisodeFileService,
                                             IHandle<SeriesScannedEvent>
     {
-        internal static readonly DateTime EpochTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
         private readonly IDiskProvider _diskProvider;
         private readonly IConfigService _configService;
         private readonly IEpisodeService _episodeService;
@@ -75,10 +73,10 @@ namespace NzbDrone.Core.MediaFiles
             // FileGetLastWrite returns UTC; convert to local to compare
             var oldLastWrite = _diskProvider.FileGetLastWrite(filePath).ToLocalTime();
 
-            if (OsInfo.IsNotWindows && localDate.ToUniversalTime() < EpochTime)
+            if (OsInfo.IsNotWindows && localDate.ToUniversalTime() < DateTimeExtensions.EpochTime)
             {
                 _logger.Debug("Setting date of file to 1970-01-01 as actual airdate is before that time and will not be set properly");
-                localDate = EpochTime.ToLocalTime();
+                localDate = DateTimeExtensions.EpochTime.ToLocalTime();
             }
 
             if (!DateTime.Equals(localDate.WithoutTicks(), oldLastWrite.WithoutTicks()))

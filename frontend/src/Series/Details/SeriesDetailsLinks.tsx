@@ -1,7 +1,5 @@
 import React from 'react';
-import Label from 'Components/Label';
-import Link from 'Components/Link/Link';
-import { kinds, sizes } from 'Helpers/Props';
+import SeriesDetailsLink from './SeriesDetailsLink';
 import Series from 'Series/Series';
 import styles from './SeriesDetailsLinks.css';
 
@@ -15,90 +13,43 @@ function SeriesDetailsLinks(props: SeriesDetailsLinksProps) {
 
   return (
     <div className={styles.links}>
-      <Link
-        className={styles.link}
-        to={`https://www.thetvdb.com/?tab=series&id=${tvdbId}`}
-      >
-        <Label
-          className={styles.linkLabel}
-          kind={kinds.INFO}
-          size={sizes.LARGE}
-        >
-          The TVDB
-        </Label>
-      </Link>
-
-      <Link
-        className={styles.link}
-        to={`https://trakt.tv/search/tvdb/${tvdbId}?id_type=show`}
-      >
-        <Label
-          className={styles.linkLabel}
-          kind={kinds.INFO}
-          size={sizes.LARGE}
-        >
-          Trakt
-        </Label>
-      </Link>
-
+      <SeriesDetailsLink
+        idValue={tvdbId}
+        label="The TVDB"
+        url={`https://www.thetvdb.com/?tab=series&id=${tvdbId}`}
+      />
+      <SeriesDetailsLink
+        idValue={tvdbId}
+        label="Trakt"
+        url={`https://trakt.tv/search/tvdb/${tvdbId}?id_type=show`}
+      />
       {tvMazeId ? (
-        <Link
-          className={styles.link}
-          to={`https://www.tvmaze.com/shows/${tvMazeId}/_`}
-        >
-          <Label
-            className={styles.linkLabel}
-            kind={kinds.INFO}
-            size={sizes.LARGE}
-          >
-            TV Maze
-          </Label>
-        </Link>
+        <SeriesDetailsLink
+          idValue={tvMazeId}
+          label="TV Maze"
+          url={`https://www.tvmaze.com/shows/${tvMazeId}/_`}
+        />
       ) : null}
-
       {imdbId ? (
         <>
-          <Link
-            className={styles.link}
-            to={`https://imdb.com/title/${imdbId}/`}
-          >
-            <Label
-              className={styles.linkLabel}
-              kind={kinds.INFO}
-              size={sizes.LARGE}
-            >
-              IMDB
-            </Label>
-          </Link>
-
-          <Link
-            className={styles.link}
-            to={`http://mdblist.com/show/${imdbId}`}
-          >
-            <Label
-              className={styles.linkLabel}
-              kind={kinds.INFO}
-              size={sizes.LARGE}
-            >
-              MDBList
-            </Label>
-          </Link>
+          <SeriesDetailsLink
+            idValue={imdbId}
+            label="IMDB"
+            url={`https://imdb.com/title/${imdbId}/`}
+          />
+          <SeriesDetailsLink
+            idValue={imdbId}
+            label="MDBList"
+            url={`http://mdblist.com/show/${imdbId}`}
+          />
         </>
       ) : null}
-
       {tmdbId ? (
-        <Link
-          className={styles.link}
-          to={`https://www.themoviedb.org/tv/${tmdbId}`}
-        >
-          <Label
-            className={styles.linkLabel}
-            kind={kinds.INFO}
-            size={sizes.LARGE}
-          >
-            TMDB
-          </Label>
-        </Link>
+        <SeriesDetailsLink
+          idValue={tmdbId}
+          label="TMDB"
+          url={`https://www.themoviedb.org/tv/${tmdbId}`}
+        />
       ) : null}
     </div>
   );

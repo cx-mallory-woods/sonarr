@@ -48,6 +48,6 @@ namespace NzbDrone.Core.Parser.Model
         /// <summary>
         /// The release contains subtitles
         /// </summary>
-        HasSubtitles = 256
+        IncludesSubtitles = 256
     }
 }

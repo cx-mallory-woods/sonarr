@@ -20,11 +20,11 @@ namespace NzbDrone.Core.Test.MediaFiles.UpdateEpisodeFileServiceTests
     public class ChangeFileDateForFileFixture : CoreTest<UpdateEpisodeFileService>
     {
         private readonly DateTime _veryOldAirDateUtc = new(1965, 01, 01, 0, 0, 0, 512, 512, DateTimeKind.Utc);
+        private DateTime _lastWrite = new(2025, 07, 27, 12, 0, 0, 512, 512, DateTimeKind.Utc);
         private Series _series;
         private EpisodeFile _episodeFile;
         private string _seriesFolder;
         private List<Episode> _episodes;
-        private DateTime _lastWrite = new(2025, 07, 27, 12, 0, 0, 512, 512, DateTimeKind.Utc);
 
         [SetUp]
         public void Setup()

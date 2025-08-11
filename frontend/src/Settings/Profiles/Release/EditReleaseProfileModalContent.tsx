@@ -211,6 +211,7 @@ function EditReleaseProfileModalContent({
               type={inputTypes.TAG}
               name="excludedTags"
               helpText={translate('ReleaseProfileExcludedTagSeriesHelpText')}
+              kind={kinds.DANGER}
               {...excludedTags}
               onChange={handleInputChange}
             />

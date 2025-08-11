@@ -93,7 +93,7 @@ function ReleaseProfileItem(props: ReleaseProfileProps) {
 
       <TagList tags={tags} tagList={tagList} />
 
-      <TagList tags={excludedTags} tagList={tagList} />
+      <TagList tags={excludedTags} tagList={tagList} kind={kinds.DANGER} />
 
       <div>
         {enabled ? null : (

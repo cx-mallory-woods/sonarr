@@ -83,7 +83,7 @@ namespace NzbDrone.Core.Download.Clients.Tribler
                 }
 
                 item.TotalSize = (long)download.Size;
-                item.RemainingSize = (long)(download.Size * (1 - download.Progress));1
+                item.RemainingSize = (long)(download.Size * (1 - download.Progress));
                 item.SeedRatio = download.AllTimeRatio;
 
                 if (download.Eta.HasValue)

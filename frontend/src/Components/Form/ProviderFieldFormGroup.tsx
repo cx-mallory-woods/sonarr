@@ -120,7 +120,6 @@ function ProviderFieldFormGroup<T>({
         helpTextWarning={helpTextWarning}
         helpLink={helpLink}
         placeholder={placeholder}
-        // @ts-expect-error - this isn't available on all types
         selectOptionsProviderAction={selectOptionsProviderAction}
         value={value}
         values={selectValues}

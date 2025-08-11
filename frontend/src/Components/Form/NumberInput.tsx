@@ -29,6 +29,7 @@ export interface NumberInputProps
   value?: number | null;
   min?: number;
   max?: number;
+  step?: number;
   isFloat?: boolean;
   onChange: (input: InputChanged<number | null>) => void;
 }
@@ -39,6 +40,7 @@ function NumberInput({
   isFloat = false,
   min,
   max,
+  step,
   onChange,
   ...otherProps
 }: NumberInputProps) {
@@ -99,6 +101,7 @@ function NumberInput({
       value={value == null ? '' : value}
       min={min}
       max={max}
+      step={step}
       onChange={handleChange}
       onBlur={handleBlur}
       onFocus={handleFocus}

@@ -17,12 +17,12 @@ namespace NzbDrone.Core.Download.Clients.RQBit
 {
     public class RQBit : TorrentClientBase<RQbitSettings>
     {
-        private readonly RQbitProxy _proxy;
+        private readonly IRQbitProxy _proxy;
         private readonly IDownloadSeedConfigProvider _downloadSeedConfigProvider;
 
         public override string Name => "RQBit";
 
-        public RQBit(RQbitProxy proxy,
+        public RQBit(IRQbitProxy proxy,
             ITorrentFileInfoReader torrentFileInfoReader,
             IHttpClient httpClient,
             IConfigService configService,
@@ -178,7 +178,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
                 var minor = int.Parse(versionMatch.Groups[2].Value);
                 var patch = int.Parse(versionMatch.Groups[3].Value);
                 var apiVersion = new Version(major, minor, patch);
-                
+
                 var minimumVersion = new Version(8, 0, 0);
 
                 if (apiVersion < minimumVersion)

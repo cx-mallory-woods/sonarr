@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
 using NLog;
+using NzbDrone.Common.Extensions;
 using NzbDrone.Common.Http;
 using NzbDrone.Core.Download.Clients.RQBit.ResponseModels;
 
@@ -44,7 +45,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var rootResponse = JsonConvert.DeserializeObject<RootResponse>(response.Content);
-                    return rootResponse?.Version.IsNotNullOrWhiteSpace();
+                    return rootResponse?.Version.IsNotNullOrWhiteSpace() ?? false;
                 }
 
                 return false;
@@ -71,7 +72,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
                 _logger.Error("Failed to get torrent version");
             }
 
-            return string.Empty();
+            return string.Empty;
         }
 
         public List<RQBitTorrent> GetTorrents(RQbitSettings settings)

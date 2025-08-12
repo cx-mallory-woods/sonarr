@@ -80,10 +80,10 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.RQBitTests
 
         protected void GivenSuccessfulDownload()
         {
-            Mocker.GetMock<RQbitProxy>()
+            Mocker.GetMock<IRQbitProxy>()
                   .Setup(s => s.AddTorrentFromUrl(It.IsAny<string>(), It.IsAny<RQbitSettings>()))
                   .Returns("CBC2F069FE8BB2F544EAE707D75BCD3DE9DCF951");
-            Mocker.GetMock<RQbitProxy>()
+            Mocker.GetMock<IRQbitProxy>()
                   .Setup(s => s.AddTorrentFromFile(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<RQbitSettings>()))
                   .Returns("CBC2F069FE8BB2F544EAE707D75BCD3DE9DCF951");
         }
@@ -95,7 +95,7 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.RQBitTests
                 torrents = new List<RQBitTorrent>();
             }
 
-            Mocker.GetMock<RQbitProxy>()
+            Mocker.GetMock<IRQbitProxy>()
                   .Setup(s => s.GetTorrents(It.IsAny<RQbitSettings>()))
                   .Returns(torrents);
         }

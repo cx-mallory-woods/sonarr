@@ -44,7 +44,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var rootResponse = JsonConvert.DeserializeObject<RootResponse>(response.Content);
-                    return !string.IsNullOrWhiteSpace(rootResponse?.Version);
+                    return rootResponse?.Version.IsNotNullOrWhiteSpace();
                 }
 
                 return false;
@@ -58,20 +58,20 @@ namespace NzbDrone.Core.Download.Clients.RQBit
 
         public string GetVersion(RQbitSettings settings)
         {
-            var version = "";
             var request = BuildRequest(settings).Resource("");
             var response = _httpClient.Get(request.Build());
+
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var rootResponse = JsonConvert.DeserializeObject<RootResponse>(response.Content);
-                version = rootResponse.Version;
+                return rootResponse.Version;
             }
             else
             {
                 _logger.Error("Failed to get torrent version");
             }
 
-            return version;
+            return string.Empty();
         }
 
         public List<RQBitTorrent> GetTorrents(RQbitSettings settings)
@@ -147,47 +147,47 @@ namespace NzbDrone.Core.Download.Clients.RQBit
 
         public string AddTorrentFromUrl(string torrentUrl, RQbitSettings settings)
         {
-            string infoHash = null;
             var itemRequest = BuildRequest(settings).Resource("/torrents?overwrite=true").Post().Build();
             itemRequest.SetContent(torrentUrl);
             var httpResponse = _httpClient.Post(itemRequest);
+
             if (httpResponse.StatusCode != HttpStatusCode.OK)
             {
-                return infoHash;
+                return null;
             }
 
             var response = JsonConvert.DeserializeObject<PostTorrentResponse>(httpResponse.Content);
 
-            if (response.Details != null)
+            if (response.Details == null)
             {
-                infoHash = response.Details.InfoHash;
+                return null;
             }
 
-            return infoHash;
+            return response.Details.InfoHash;
         }
 
         public string AddTorrentFromFile(string fileName, byte[] fileContent, RQbitSettings settings)
         {
-            string infoHash = null;
             var itemRequest = BuildRequest(settings)
                 .Post()
                 .Resource("/torrents?overwrite=true")
                 .Build();
             itemRequest.SetContent(fileContent);
             var httpResponse = _httpClient.Post(itemRequest);
+
             if (httpResponse.StatusCode != HttpStatusCode.OK)
             {
-                return infoHash;
+                return null;
             }
 
             var response = JsonConvert.DeserializeObject<PostTorrentResponse>(httpResponse.Content);
 
-            if (response.Details != null)
+            if (response.Details == null)
             {
-                infoHash = response.Details.InfoHash;
+                return null;
             }
 
-            return infoHash;
+            return response.Details.InfoHash;
         }
 
         public void SetTorrentLabel(string hash, string label, RQbitSettings settings)
@@ -199,7 +199,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
         {
             var result = true;
             var rqBitTorrentResponse = GetTorrent(hash, settings);
-            if (rqBitTorrentResponse == null || string.IsNullOrWhiteSpace(rqBitTorrentResponse.InfoHash))
+            if (rqBitTorrentResponse == null || rqBitTorrentResponse.InfoHash.IsNullOrWhiteSpace())
             {
                 result = false;
             }
@@ -209,17 +209,15 @@ namespace NzbDrone.Core.Download.Clients.RQBit
 
         private TorrentResponse GetTorrent(string infoHash, RQbitSettings settings)
         {
-            TorrentResponse result = null;
             var itemRequest = BuildRequest(settings).Resource("/torrents/" + infoHash);
             var itemResponse = _httpClient.Get(itemRequest.Build());
+
             if (itemResponse.StatusCode != HttpStatusCode.OK)
             {
-                return result;
+                return null;
             }
 
-            result = JsonConvert.DeserializeObject<TorrentResponse>(itemResponse.Content);
-
-            return result;
+            return JsonConvert.DeserializeObject<TorrentResponse>(itemResponse.Content);
         }
 
         private HttpRequestBuilder BuildRequest(RQbitSettings settings)
@@ -228,6 +226,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
             {
                 LogResponseContent = true,
             };
+
             return requestBuilder;
         }
     }

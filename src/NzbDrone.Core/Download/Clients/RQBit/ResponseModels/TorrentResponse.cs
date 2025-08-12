@@ -7,10 +7,10 @@ public class TorrentResponse
 {
     [JsonProperty("info_hash")]
     public string InfoHash { get; set; }
-    [JsonProperty("name")]
+
     public string Name { get; set; }
-    [JsonProperty("files")]
     public List<TorrentFileResponse> Files { get; set; }
+
     [JsonProperty("output_folder")]
-    public string  OutputFolder { get; set; }
+    public string OutputFolder { get; set; }
 }

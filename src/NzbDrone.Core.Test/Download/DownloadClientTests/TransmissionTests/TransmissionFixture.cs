@@ -273,6 +273,35 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.TransmissionTests
             items.First().OutputPath.Should().Be(@"C:\Downloads\Finished\transmission\" + _title);
         }
 
+        [Test]
+        public void should_fix_backward_slashes()
+        {
+            WindowsOnly();
+
+            _downloading.DownloadDir = @"C:/Downloads/Finished/transmission";
+
+            GivenTorrents(new List<TransmissionTorrent>
+                {
+                    new TransmissionTorrent
+                    {
+                        HashString = "HASH",
+                        IsFinished = false,
+                        Status = TransmissionTorrentStatus.Downloading,
+                        Name = "Don\'t Look Back in Anger",
+                        TotalSize = 1000,
+                        LeftUntilDone = 100,
+                        DownloadDir = "Can\'t touch this"
+                    };
+                });
+
+            var items = Subject.GetItems().ToList();
+
+            items.Should().HaveCount(1);
+            items.First().OutputPath.Should().Be(
+                    @"C:\Downloads\Finished\transmission\" + \
+                    @"Can\'t touch this\Don't Look Back in Anger");
+        }
+
         [TestCase("2.84 ()")]
         [TestCase("2.84+ ()")]
         [TestCase("2.84 (other info)")]

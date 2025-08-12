@@ -17,13 +17,12 @@ namespace NzbDrone.Core.Download.Clients.RQBit
 {
     public class RQBit : TorrentClientBase<RQbitSettings>
     {
-        private readonly IRQbitProxySelector _proxySelector;
+        private readonly RQbitProxy _proxy;
         private readonly IDownloadSeedConfigProvider _downloadSeedConfigProvider;
-        private IRQbitProxy _proxy => _proxySelector.GetProxy(Settings);
 
         public override string Name => "RQBit";
 
-        public RQBit(IRQbitProxySelector proxySelector,
+        public RQBit(RQbitProxy proxy,
             ITorrentFileInfoReader torrentFileInfoReader,
             IHttpClient httpClient,
             IConfigService configService,
@@ -35,7 +34,7 @@ namespace NzbDrone.Core.Download.Clients.RQBit
             Logger logger)
             : base(torrentFileInfoReader, httpClient, configService, diskProvider, remotePathMappingService, localizationService, blocklistService, logger)
         {
-            _proxySelector = proxySelector;
+            _proxy = proxy;
             _downloadSeedConfigProvider = downloadSeedConfigProvider;
         }
 
@@ -162,7 +161,24 @@ namespace NzbDrone.Core.Download.Clients.RQBit
         {
             try
             {
-                var apiVersion = _proxySelector.GetApiVersion(Settings);
+                var versionString = _proxy.GetVersion(Settings);
+                if (string.IsNullOrWhiteSpace(versionString))
+                {
+                    return new ValidationFailure("", "Unable to determine RQBit version. Please check that RQBit is running and accessible.");
+                }
+
+                // Parse version string to Version object
+                var versionMatch = System.Text.RegularExpressions.Regex.Match(versionString, @"(\d+)\.(\d+)\.(\d+)");
+                if (!versionMatch.Success)
+                {
+                    return new ValidationFailure("", $"Unable to parse RQBit version '{versionString}'. Please check that RQBit is running and accessible.");
+                }
+
+                var major = int.Parse(versionMatch.Groups[1].Value);
+                var minor = int.Parse(versionMatch.Groups[2].Value);
+                var patch = int.Parse(versionMatch.Groups[3].Value);
+                var apiVersion = new Version(major, minor, patch);
+                
                 var minimumVersion = new Version(8, 0, 0);
 
                 if (apiVersion < minimumVersion)

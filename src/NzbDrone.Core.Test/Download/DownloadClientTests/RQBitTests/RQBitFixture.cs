@@ -80,15 +80,12 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.RQBitTests
 
         protected void GivenSuccessfulDownload()
         {
-            var mockProxy = new Mock<IRQbitProxy>();
-            mockProxy.Setup(s => s.AddTorrentFromUrl(It.IsAny<string>(), It.IsAny<RQbitSettings>()))
-                     .Returns("CBC2F069FE8BB2F544EAE707D75BCD3DE9DCF951");
-            mockProxy.Setup(s => s.AddTorrentFromFile(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<RQbitSettings>()))
-                     .Returns("CBC2F069FE8BB2F544EAE707D75BCD3DE9DCF951");
-
-            Mocker.GetMock<IRQbitProxySelector>()
-                  .Setup(s => s.GetProxy(It.IsAny<RQbitSettings>(), It.IsAny<bool>()))
-                  .Returns(mockProxy.Object);
+            Mocker.GetMock<RQbitProxy>()
+                  .Setup(s => s.AddTorrentFromUrl(It.IsAny<string>(), It.IsAny<RQbitSettings>()))
+                  .Returns("CBC2F069FE8BB2F544EAE707D75BCD3DE9DCF951");
+            Mocker.GetMock<RQbitProxy>()
+                  .Setup(s => s.AddTorrentFromFile(It.IsAny<string>(), It.IsAny<byte[]>(), It.IsAny<RQbitSettings>()))
+                  .Returns("CBC2F069FE8BB2F544EAE707D75BCD3DE9DCF951");
         }
 
         protected virtual void GivenTorrents(List<RQBitTorrent> torrents)
@@ -98,13 +95,9 @@ namespace NzbDrone.Core.Test.Download.DownloadClientTests.RQBitTests
                 torrents = new List<RQBitTorrent>();
             }
 
-            var mockProxy = new Mock<IRQbitProxy>();
-            mockProxy.Setup(s => s.GetTorrents(It.IsAny<RQbitSettings>()))
-                     .Returns(torrents);
-
-            Mocker.GetMock<IRQbitProxySelector>()
-                  .Setup(s => s.GetProxy(It.IsAny<RQbitSettings>(), It.IsAny<bool>()))
-                  .Returns(mockProxy.Object);
+            Mocker.GetMock<RQbitProxy>()
+                  .Setup(s => s.GetTorrents(It.IsAny<RQbitSettings>()))
+                  .Returns(torrents);
         }
 
         protected void PrepareClientToReturnQueuedItem()

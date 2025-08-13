@@ -42,7 +42,7 @@ namespace NzbDrone.Core.Profiles.Releases
 
         public List<ReleaseProfile> AllForTags(HashSet<int> tagIds)
         {
-            return _repo.All().Where(r => r.Tags.Intersect(tagIds).Any() || r.Tags.Empty()).ToList();
+            return _repo.All().Where(r => r.Tags.Intersect(tagIds).Any() || (r.Tags.Empty() && !r.ExcludedTags.Intersect(tagIds).Any())).ToList();
         }
 
         public List<ReleaseProfile> EnabledForTags(HashSet<int> tagIds, int indexerId)

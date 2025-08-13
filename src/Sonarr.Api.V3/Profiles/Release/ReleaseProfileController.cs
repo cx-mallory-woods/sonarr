@@ -43,6 +43,11 @@ namespace Sonarr.Api.V3.Profiles.Release
                 {
                     context.AddFailure(nameof(ReleaseProfile.IndexerId), "Indexer does not exist");
                 }
+
+                if (restriction.ExcludedTags.Intersect(restriction.Tags).Any())
+                {
+                    context.AddFailure(nameof(ReleaseProfile.ExcludedTags), "Release profile should not have the same tag as an include and an exclude");
+                }
             });
         }
 

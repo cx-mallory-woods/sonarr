@@ -39,28 +39,28 @@ namespace NzbDrone.Core.Test.Profiles
         }
 
         [Test]
-        public void untagged_artist_should_match_default_and_excluded_release_profiles()
+        public void all_for_tags_should_match_default_and_excluded_release_profiles_for_untagged_series()
         {
             var releaseProfiles = Subject.AllForTags([]);
             releaseProfiles.Should().Equal([_defaultReleaseProfile, _excludedReleaseProfile]);
         }
 
         [Test]
-        public void all_for_tags_should_match_default_and_included_and_not_excluded_release_profiles()
+        public void all_for_tags_should_match_default_and_included_and_not_excluded_release_profiles_for_tagged_series()
         {
             var releaseProfiles = Subject.AllForTags([1]);
             releaseProfiles.Should().Equal([_defaultReleaseProfile, _includedReleaseProfile, _excludedReleaseProfile]);
         }
 
         [Test]
-        public void all_for_tags_should_not_match_excluded_release_profiles()
+        public void all_for_tags_should_not_match_excluded_release_profiles_for_tagged_series()
         {
             var releaseProfiles = Subject.AllForTags([2]);
             releaseProfiles.Should().Equal([_defaultReleaseProfile]);
         }
 
         [Test]
-        public void all_for_tag_should_match_included_release_profiles()
+        public void all_for_tag_should_match_included_release_profiles_for_tagged_series()
         {
             var releaseProfiles = Subject.AllForTag(1);
             releaseProfiles.Should().Equal([_includedReleaseProfile]);

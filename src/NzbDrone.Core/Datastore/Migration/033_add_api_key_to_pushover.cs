@@ -16,45 +16,49 @@ namespace NzbDrone.Core.Datastore.Migration
         }
 
         private void UpdatePushoverSettings(IDbConnection conn, IDbTransaction tran)
+{
+    using (var selectCommand = conn.CreateCommand())
+    {
+        selectCommand.Transaction = tran;
+        selectCommand.CommandText = "SELECT * FROM \"Notifications\" WHERE \"ConfigContract\" = 'PushoverSettings'";
+
+        using (var reader = selectCommand.ExecuteReader())
         {
-            using (var selectCommand = conn.CreateCommand())
+            while (reader.Read())
             {
-                selectCommand.Transaction = tran;
-                selectCommand.CommandText = "SELECT * FROM \"Notifications\" WHERE \"ConfigContract\" = 'PushoverSettings'";
+                var idIndex = reader.GetOrdinal("Id");
+                var settingsIndex = reader.GetOrdinal("Settings");
 
-                using (var reader = selectCommand.ExecuteReader())
+                var id = reader.GetInt32(idIndex);
+                var settings = Json.Deserialize<PushoverSettingsForV33>(reader.GetString(settingsIndex));
+                settings.ApiKey = API_KEY;
+
+                if (settings.Priority == 2)
                 {
-                    while (reader.Read())
-                    {
-                        var idIndex = reader.GetOrdinal("Id");
-                        var settingsIndex = reader.GetOrdinal("Settings");
+                    settings.Priority = 1;
+                }
 
-                        var id = reader.GetInt32(idIndex);
-                        var settings = Json.Deserialize<PushoverSettingsForV33>(reader.GetString(settingsIndex));
-                        settings.ApiKey = API_KEY;
+                using (var updateCmd = conn.CreateCommand())
+                {
+                    updateCmd.Transaction = tran;
+                    updateCmd.CommandText = "UPDATE \"Notifications\" SET \"Settings\" = @settings WHERE \"Id\" = @id";
 
-                        // Set priority to high if its currently emergency
-                        if (settings.Priority == 2)
-                        {
-                            settings.Priority = 1;
-                        }
+                    var paramSettings = updateCmd.CreateParameter();
+                    paramSettings.ParameterName = "@settings";
+                    paramSettings.Value = settings.ToJson();
+                    updateCmd.Parameters.Add(paramSettings);
 
-                        using (var updateCmd = conn.CreateCommand())
-                        {
-                            var text = string.Format("UPDATE \"Notifications\" " +
-                                                     "SET \"Settings\" = '{0}'" +
-                                                     "WHERE \"Id\" = {1}",
-                                settings.ToJson(),
-                                id);
+                    var paramId = updateCmd.CreateParameter();
+                    paramId.ParameterName = "@id";
+                    paramId.Value = id;
+                    updateCmd.Parameters.Add(paramId);
 
-                            updateCmd.Transaction = tran;
-                            updateCmd.CommandText = text;
-                            updateCmd.ExecuteNonQuery();
-                        }
-                    }
+                    updateCmd.ExecuteNonQuery();
                 }
             }
         }
+    }
+}
 
         private class PushoverSettingsForV33
         {
